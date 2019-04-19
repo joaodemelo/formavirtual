@@ -6,9 +6,22 @@
   <body>
   <a-scene>
   <a-assets>  
-	  <img id="sky" src="./photo/Veiculo_Exterior_0.jpg" />
-	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" />
-	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" />
+	  <img id="sky360" src="./photo/Veiculo_Exterior_0.jpg" />
+	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" crossorigin="anonymous" />
+	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" crossorigin="anonymous" />
+	  <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+	  
+	   <!-- Image link template to be reused. -->
+         <script id="link" type="text/html">
+           <a-entity class="link"
+             geometry="primitive: plane; height: 1; width: 1"
+             material="shader: flat; src: ${thumb}"
+             event-set__mouseenter="scale: 1.2 1.2 1"
+             event-set__mouseleave="scale: 1 1 1"
+             event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+             proxy-event="event: click; to: #sky360; as: fade"
+             sound="on: click; src: #click-sound"></a-entity>
+         </script>
   </a-assets> 
 	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#000" scale="1.5 1.5 1.5"></a-text>
 	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#000"></a-text>
@@ -38,7 +51,11 @@
 	  </a-circle> 
 	 
   </a-entity>	  
-  <a-sky src="#sky" rotation="0 180 0" geometry="" material="" >
+  <a-sky src="#sky360" rotation="0 180 0" geometry="" material="" 
+	 animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+         animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+
+    >
   </a-sky>
   <a-camera position="1 0 6" look-controls wasd-controls>
   </a-camera>	    
