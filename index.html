@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title>My root formação  #2</title>
-  <meta name="description" content="360&deg; Image - A-Frame">
-   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+<html lang="en">
+<head>			
+	<title>WebVR Mouse Experiment</title>
+	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+	<script> 
+ 		<!-- // Component to change to a sequential color on click.-->
+		AFRAME.registerComponent('cursor-listener', {
+  		init: function () {
+    		var lastIndex = -1;
+    		var COLORS = ['red', 'green', 'blue'];
+    		this.el.addEventListener('click', function (evt) {
+      		lastIndex = (lastIndex + 1) % COLORS.length;
+      		this.setAttribute('material', 'color', COLORS[lastIndex]);
+      		console.log('I was clicked at: ', evt.detail.intersection.point);
+    			});
+  			}
+		});
+</script>
 </head>
-<a-scene> 
-  <!-- my data -->
-  <a-assets>
-    <!-- Basic ring. -->
-    <a-ring color="teal" radius-inner="1" radius-outer="2"></a-ring>
-    <a-asset-item id="box1" color="green" position="0 2 -4" rotation="0 180 0">
-    </a-asset-item>
-  </assets>
-  <a-sky src="#ffff22"></a-sky>
-   <a-camera>
-   <a-ring color="teal" radius-inner="1" radius-outer="2"></a-ring>
-     </a-camera>
-</a-scene>
+<body>
+	<a-scene>
+ 
+	<a-assets>
+		<img id="sky" src="./photo/Veiculo_Exterior_0.jpg"  />
+	</a-assets>
+	<a-entity id="#rig" position="25 10 0">
+	<a-entity camera look-controls  >
+  		<a-entity cursor="fuse: true; fuseTimeout: 500"
+            		  position="0 0 -1"
+            		  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            		  material="color: red; shader: flat">
+ 		</a-entity>		 
+	</a-entity> 
+	</a-entity> 
+	<a-entity id="box" 		
+		cursor-listener 
+		geometry="primitive: box" material="color: blue; width:20;height:20">
+	</a-entity>
+ 
+	<a-sky src="#sky" geometry="" material=""   rotation="0 -170 0"></a-sky>
+ 
+	</a-scene>
+</body>	 
 </html>
