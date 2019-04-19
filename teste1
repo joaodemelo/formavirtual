@@ -6,6 +6,8 @@
   <body>
   <a-scene>
   <a-assets>
+	<img id="sky" src="./photo/Veiculo_Exterior_0.jpg"  />
+	 
   </a-assets>
   </a-scene>
   </body>
