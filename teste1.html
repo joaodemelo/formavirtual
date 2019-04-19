@@ -7,16 +7,20 @@
   <a-scene>
   <a-assets>  
 	  <img id="sky" src="./photo/Veiculo_Exterior_0.jpg" />
+	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" />
+	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" />
   </a-assets> 		  
   <a-entity  		 
 	geometry="primitive: ring; radius-inner: 0.10; radius-outer: 0.5"  
 	material="color: #ff4000; shader: flat" 
-	    position="0 3 1"> 
+	    position="0 3 1"
+	    event-set__enter="_event: mouseenter; _target: #portaPendura "> 
   </a-entity>
   <a-entity  
 	    geometry="primitive: circle; radius: .70" 
 	    material="color: #00bfff; transparent: true; opacity: 0.20"
-	    position="0 -2 1">	  
+	    position="0 -2 1"
+	    event-set__enter="_event: mouseenter; _target: #portaCondutor "> >	  
   </a-entity>
   <a-entity>
 	  
