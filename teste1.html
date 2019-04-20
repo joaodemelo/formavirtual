@@ -85,13 +85,13 @@
 	geometry="primitive: ring; radius-inner: 0.10; radius-outer: 0.5"  
 	material="color: #ff4000; shader: flat" 
 	    position="0 3 1"
-	    event-set__enter="_event: mouseenter; _target: #portaPendura"> 
+	    event-set__enter="_event: mouseenter; _target: #portaPendura" > 
   </a-entity>
   <a-entity  
 	    geometry="primitive: circle; radius: .70" 
 	    material="color: #00bfff; transparent: true; opacity: 0.20"
 	    position="0 -2 1"
-	    event-set__enter="_event: mouseenter; _target: #portaCondutor"> >	  
+	    event-set__enter="_event: mouseenter; _target: #portaCondutor" >	  
   </a-entity>
   <a-entity>	  
 	  <a-circle position="10 0 0" material="side: single; color: #EF2D5E; transparent: true; opacity: 0.4" 
@@ -107,11 +107,12 @@
 	
 	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#ff9999" scale="1.5 1.5 1.5"></a-text>
 	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#ffff00"></a-text>	  
-	<!--   
+	 
   <a-sky src="#frente" rotation="0 180 0" geometry="" material="" >
-	   animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+	<!--      animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
          animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade" -->
  </a-sky>
+	  
  <a-entity id="cam" camera position="0 180 0"  look-controls >  
         <a-entity cursor="fuse:true;fuseTimeout:2000"
                   geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
