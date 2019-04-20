@@ -2,30 +2,80 @@
 <head>			
 	<title>WebVR Mouse Experiment</title>
 	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+	<script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <script>
+      AFRAME.registerComponent('hotspots',{
+        init:function(){
+            this.el.addEventListener('reloadspots',function(evt){
+            
+            //get the entire current spot group and scale it to 0
+            var currspotgroup=document.getElementById(evt.detail.currspots);
+            currspotgroup.setAttribute("scale","0 0 0");
+            
+            //get the entire new spot group and scale it to 1
+            var newspotgroup=document.getElementById(evt.detail.newspots);
+            newspotgroup.setAttribute("scale","1 1 1");
+          });
+        }
+      });
+      AFRAME.registerComponent('spot',{
+        schema:{
+          linkto:{type:"string",default:""},
+          spotgroup:{type:"string",default:""}
+        },
+        init:function(){
+          
+          //add image source of hotspot icon
+          this.el.setAttribute("src","#hotspot");
+          //make the icon look at the camera all the time
+          this.el.setAttribute("look-at","#cam");
+          
+          var data=this.data;
+          
+          this.el.addEventListener('click',function(){
+            //set the skybox source to the new image as per the spot
+            var sky=document.getElementById("skybox");
+            sky.setAttribute("src",data.linkto);
+            
+            var spotcomp=document.getElementById("spots");
+            var currspots=this.parentElement.getAttribute("id");
+            //create event for spots component to change the spots data
+            spotcomp.emit('reloadspots',{newspots:data.spotgroup,currspots:currspots});
+          });
+        }
+      });
+    </script>
   </head>
+
   <body>
-  <a-scene>
-  <a-assets>  
-	  <img id="sky360" src="./photo/Veiculo_Exterior_0.jpg" />
-	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" crossorigin="anonymous" />
-	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" crossorigin="anonymous" />
-	  <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
 	  
-	   <!-- Image link template to be reused. -->
-         <script id="link" type="text/html">
-           <a-entity class="link"
-             geometry="primitive: plane; height: 1; width: 1"
-             material="shader: flat; src: ${thumb}"
-             event-set__mouseenter="scale: 1.2 1.2 1"
-             event-set__mouseleave="scale: 1 1 1"
-             event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
-             proxy-event="event: click; to: #sky360; as: fade"
-             sound="on: click; src: #click-sound"></a-entity>
-         </script>
+  <a-scene>
+	  
+  <a-assets>  
+	  <img id="frente" src="./photo/Veiculo_Exterior_0.jpg" />
+	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" crossorigin="anonymous" />
+	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" crossorigin="anonymous" />	  
   </a-assets> 
 	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#000" scale="1.5 1.5 1.5"></a-text>
 	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#000"></a-text>
-
+	  <!-- Add the real data — 360 images-->
+	  
+	  <a-entity id="spots" hotspots>
+        <a-entity id="group-point1"><!-- Frente -->
+          <a-image spot="linkto:#frente;spotgroup:group-point2" position="-4 0 10"></a-image>
+        </a-entity>
+        <a-entity id="group-point2" scale="0 0 0"> <!-- lado condutor -->
+          <a-image spot="linkto:#portaCondutor;spotgroup:group-point1" position="10 0 -8"></a-image>
+          <a-image spot="linkto:#portaPendura;spotgroup:group-point3" position="0 0 10"></a-image>
+        </a-entity>
+        <a-entity id="group-point3" scale="0 0 0"><!-- lado pendura -->
+          <a-image spot="linkto:#portaCondutor;spotgroup:group-point2" position="10 0 3"></a-image>
+          <a-image spot="linkto:#portaPendura;spotgroup:group-point4" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-point4" scale="0 0 0"> <!-- traseira -->
+          <a-image spot="linkto:#portaPendura;spotgroup:group-point3" position="0 0 -10"></a-image>
+        </a-entity>
+</a-entity>
   <a-entity  		 
 	geometry="primitive: ring; radius-inner: 0.10; radius-outer: 0.5"  
 	material="color: #ff4000; shader: flat" 
@@ -38,8 +88,7 @@
 	    position="0 -2 1"
 	    event-set__enter="_event: mouseenter; _target: #portaCondutor"> >	  
   </a-entity>
-  <a-entity>
-	  
+  <a-entity>	  
 	  <a-circle position="10 0 0" material="side: single; color: #EF2D5E; transparent: true; opacity: 0.4" 
 		    geometry="primitive:circle;radius:0.5"  >
 	  </a-circle>
@@ -48,17 +97,23 @@
 	  </a-circle>
 	  <a-circle position="4 1 0" material="side: double; color: #EF2D5E; transparent: true; opacity: 0.6" 
 		    geometry="primitive:circle;radius:0.10"  >
-	  </a-circle> 
-	 
+	  </a-circle> 	 
   </a-entity>	  
-  <a-sky src="#sky360" rotation="0 180 0" geometry="" material="" 
+  <a-entity id="cam" camera position="0 1.6 0" look-controls>
+        <a-entity cursor="fuse:true;fuseTimeout:2000"
+                  geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+                  position="0 0 -1.8"
+                  material="shader:flat;color:#ff0000"
+                  animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
+        </a-entity>
+</a-entity>
+  <a-sky src="#frente" rotation="0 180 0" geometry="" material="" 
 	 animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
          animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
 
     >
   </a-sky>
-  <a-camera position="1 0 6" look-controls wasd-controls>
-  </a-camera>	    
+    
   </a-scene>
   </body>
 </html>
