@@ -61,7 +61,10 @@
 	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" />
 	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" />	  
   </a-assets> 
-	
+	 
+	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#ff9999" scale="1.5 1.5 1.5"></a-text>
+	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#ffff00"></a-text>	  
+   
 	  <!-- Add the real data — 360 images-->	  
   <a-entity id="spots" hotspots>
         <a-entity id="group-point1"><!-- Frente -->
@@ -78,34 +81,8 @@
         <a-entity id="group-point4" scale="0 0 0"> <!-- traseira -->
           <a-image spot="linkto: #frente; spotgroup: group-point1" position="0 1 0"></a-image>
         </a-entity>
-  </a-entity>
-  <a-entity  		 
-	geometry="primitive: ring; radius-inner: 0.10; radius-outer: 0.5"  
-	material="color: #ff4000; shader: flat" 
-	    position="0 3 1"
-	    event-set__enter="_event: mouseenter; _target: #portaPendura" > 
-  </a-entity>
-  <a-entity  
-	    geometry="primitive: circle; radius: .70" 
-	    material="color: #00bfff; transparent: true; opacity: 0.20"
-	    position="0 -2 1"
-	    event-set__enter="_event: mouseenter; _target: #portaCondutor" >	  
-  </a-entity>
-  <a-entity>	  
-	  <a-circle position="10 0 0" material="side: single; color: #EF2D5E; transparent: true; opacity: 0.4" 
-		    geometry="primitive:circle;radius:0.5"  >
-	  </a-circle>
-	  <a-circle position="7 0 0" material="side: double; color: #ffffff; transparent: true; opacity: 0.8" 
-		    geometry="primitive:circle;radius:0.5"  >
-	  </a-circle>
-	  <a-circle position="4 1 0" material="side: double; color: #EF2D5E; transparent: true; opacity: 0.6" 
-		    geometry="primitive:circle;radius:0.10"  >
-	  </a-circle> 	 
-  </a-entity>	  
-  <a-entity>
-	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#ff9999" scale="1.5 1.5 1.5"></a-text>
-	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#ffff00"></a-text>	  
-  </a-entity>	
+  </a-entity> 
+   
   <a-sky id="skybox" src="#frente" rotation="0 180 0"   ><!--geometry="" material="" -->
 	<!--      animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
          animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade" -->
