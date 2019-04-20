@@ -3,6 +3,7 @@
 	<title>WebVR Mouse Experiment</title>
 	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 	<script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+	
     <script>
       AFRAME.registerComponent('hotspots',{
         init:function(){
@@ -18,6 +19,7 @@
           });
         }
       });
+	    
       AFRAME.registerComponent('spot',{
         schema:{
           linkto:{type:"string",default:""},
@@ -44,7 +46,9 @@
           });
         }
       });
+	    
     </script>
+	
   </head>
 
   <body>
@@ -60,7 +64,7 @@
 	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#000"></a-text>
 	  <!-- Add the real data — 360 images-->
 	  
-	  <a-entity id="spots" hotspots>
+	<a-entity id="spots" hotspots>
         <a-entity id="group-point1"><!-- Frente -->
           <a-image spot="linkto:#frente;spotgroup:group-point2" position="-4 0 10"></a-image>
         </a-entity>
@@ -73,7 +77,7 @@
           <a-image spot="linkto:#portaPendura;spotgroup:group-point4" position="-10 0 -3"></a-image>
         </a-entity>
         <a-entity id="group-point4" scale="0 0 0"> <!-- traseira -->
-          <a-image spot="linkto:#portaPendura;spotgroup:group-point3" position="0 0 -10"></a-image>
+          <a-image spot="linkto:#portaPendura;spotgroup:group-point1" position="0 0 -10"></a-image>
         </a-entity>
 </a-entity>
   <a-entity  		 
@@ -99,20 +103,21 @@
 		    geometry="primitive:circle;radius:0.10"  >
 	  </a-circle> 	 
   </a-entity>	  
-  <a-entity id="cam" camera position="0 1.6 0" look-controls>
+  <a-entity id="cam" camera position="0 172 1" look-controls>
         <a-entity cursor="fuse:true;fuseTimeout:2000"
                   geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
                   position="0 0 -1.8"
                   material="shader:flat;color:#ff0000"
-                  animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
+                  animation__mouseenter="property:scale;to:4 4 4;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
         </a-entity>
 </a-entity>
-  <a-sky src="#frente" rotation="0 180 0" geometry="" material="" 
-	 animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
-         animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
-
-    >
+  <a-sky src="#frente" rotation="0 180 0" geometry="" material="" >
+	<!-- animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+         animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade" -->
   </a-sky>
+
+    
+  
     
   </a-scene>
   </body>
