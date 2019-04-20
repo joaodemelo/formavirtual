@@ -68,19 +68,19 @@
 
 	<a-entity id="spots" hotspots>
         <a-entity id="group-point1">
-          <a-image spot="linkto:#point2;spotgroup:group-point2" position="0 180 1"></a-image>
-	  <a-image spot="linkto:#point3;spotgroup:group-point3" position="1 180 2"></a-image>
+          <a-image spot="linkto:#point2;spotgroup:group-point2" position="0 1 1"></a-image>
+	  <a-image spot="linkto:#point3;spotgroup:group-point3" position="1 2 2"></a-image>
         </a-entity>
         <a-entity id="group-point2" scale="0 0 0">          
-          <a-image spot="linkto:#point3;spotgroup:group-point3" position="0 180 1"></a-image>
-	  <a-image spot="linkto:#point1;spotgroup:group-point1" position="1 180 2"></a-image>	
+          <a-image spot="linkto:#point3;spotgroup:group-point3" position="0 1 1"></a-image>
+	  <a-image spot="linkto:#point1;spotgroup:group-point1" position="1 2 2"></a-image>	
         </a-entity>
         <a-entity id="group-point3" scale="0 0 0">
-          <a-image spot="linkto:#point2;spotgroup:group-point2" position="0 180 1"></a-image>   
-	  <a-image spot="linkto:#point1;spotgroup:group-point1" position="1 180 2"></a-image>	
+          <a-image spot="linkto:#point2;spotgroup:group-point2" position="0 1 1"></a-image>   
+	  <a-image spot="linkto:#point1;spotgroup:group-point1" position="1 2 2"></a-image>	
         </a-entity>
         <a-entity id="group-point4" scale="0 0 0">
-          <a-image spot="linkto:#point1;spotgroup:group-point1" position="0 180 1"></a-image>
+          <a-image spot="linkto:#point1;spotgroup:group-point1" position="0 1 1"></a-image>
         </a-entity>
 </a-entity>	
       <a-sky 	id="skybox"
@@ -93,7 +93,7 @@
 
 	<a-entity id="cam" camera position="0 1.6 0" look-controls>
         	<a-entity cursor="fuse:true;fuseTimeout:2000"
-                  geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+                  geometry="primitive:ring;radiusInner:0.03;radiusOuter:0.06"
                   position="0 0 -1.8"
                   material="shader:flat;color:#ff0000"
                   animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
