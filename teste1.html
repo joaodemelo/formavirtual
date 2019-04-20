@@ -1,10 +1,13 @@
 <!doctype html>
 <head>			
 	<title>WebVR Mouse Experiment</title>
-	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-	<script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+	<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script><!-- enabling the animation component  -->
 	
+	<!--animation component script-->	 
+	<script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>   
+	<script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
     <script>
+	    
       AFRAME.registerComponent('hotspots',{
         init:function(){
             this.el.addEventListener('reloadspots',function(evt){
@@ -48,7 +51,7 @@
       });
 	    
     </script>
-	
+ 
   </head>
 
   <body>
@@ -60,8 +63,8 @@
 	  <img id="portaCondutor" src="./photo/Veiculo_Exterior_4.jpg" crossorigin="anonymous" />
 	  <img id="portaPendura" src="./photo/Veiculo_Exterior_3.jpg" crossorigin="anonymous" />	  
   </a-assets> 
-	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#000" scale="1.5 1.5 1.5"></a-text>
-	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#000"></a-text>
+	<a-text value="Bem vindo a Realidade Virtual!!" position="-1.5 4 -5" color="#fff" scale="1.5 1.5 1.5"></a-text>
+	<a-text value="Passa o teu olhar por cima dos circulos." position="-1.5 3.5 -5" color="#fff"></a-text>
 	  <!-- Add the real data — 360 images-->
 	  
 	<a-entity id="spots" hotspots>
